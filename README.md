@@ -5,3 +5,10 @@
 # Usage
 
 /energy \<UserName>
+
+### License
+
+* Template ([TemplateDevEnv](https://github.com/CleanroomMC/TemplateDevEnv))
+    - Copyright (c) CleanroomMC
+    - [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+
