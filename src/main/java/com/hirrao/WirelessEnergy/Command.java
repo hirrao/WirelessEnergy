@@ -6,10 +6,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-import java.lang.reflect.Field;
 import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.UUID;
+
+import static com.hirrao.WirelessEnergy.EventTick.totalEnergyLast;
+import static com.hirrao.WirelessEnergy.EventTick.totalEnergyNow;
 
 public class Command extends CommandBase {
 
@@ -43,14 +44,19 @@ public class Command extends CommandBase {
             return;
         }
         try {
-            Class<?> clazz = Class.forName("magicbook.gtlitecore.api.misc.GlobalVariableStorage");
-            Field field = clazz.getDeclaredField("WirelessEnergy");
-            @SuppressWarnings("unchecked") HashMap<UUID, BigInteger> wirelessEnergy = (HashMap<UUID, BigInteger>) field.get(null);
-            BigInteger energy = wirelessEnergy.getOrDefault(uuid, BigInteger.ZERO);
-            sender.sendMessage(new TextComponentString("Energy: " + energy));
-
+            BigInteger energyNow = totalEnergyNow.getOrDefault(uuid, BigInteger.ZERO);
+            BigInteger energyLast = totalEnergyLast.getOrDefault(uuid, BigInteger.ZERO);
+            BigInteger energyDiff = energyNow.subtract(energyLast);
+            Log.LOGGER.info("energyNow: " + energyNow + ", energyLast: " + energyLast + ", energyDiff: " + energyDiff);
+            if (energyDiff.compareTo(BigInteger.ZERO) >= 0) {
+                sender.sendMessage(new TextComponentString("当前能量" + energyNow + "，增加了" + energyDiff));
+            } else if (energyDiff.compareTo(BigInteger.ZERO) < 0) {
+                sender.sendMessage(new TextComponentString("当前能量" + energyNow + "，减少了" + energyDiff.abs()));
+                BigInteger time = energyNow.divide(energyDiff.abs());
+                sender.sendMessage(new TextComponentString("预计" + time + "秒后能量耗尽"));
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.LOGGER.error(e);
         }
 
     }
