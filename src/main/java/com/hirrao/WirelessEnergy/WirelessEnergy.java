@@ -10,7 +10,7 @@ public class WirelessEnergy {
 
     public static final String MOD_ID = "wirelessenergy";
     public static final String MOD_NAME = "WirelessEnergy";
-    public static final String VERSION = "0.0.2-beta";
+    public static final String VERSION = "0.0.3-beta";
 
     /**
      * <a href="https://cleanroommc.com/wiki/forge-mod-development/event#overview">
