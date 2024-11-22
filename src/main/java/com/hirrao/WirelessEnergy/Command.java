@@ -54,7 +54,7 @@ public class Command extends CommandBase {
             } else if (energyDiff.compareTo(BigInteger.ZERO) < 0) {
                 sender.sendMessage(new TextComponentString("平均输出" + energyDiff.abs().divide(BigInteger.valueOf(20)) + " EU/t"));
                 BigInteger time = energyNow.divide(energyDiff.abs());
-                sender.sendMessage(new TextComponentString("预计" + time + "S后能量耗尽"));
+                sender.sendMessage(new TextComponentString("预计" + time + "秒后能量耗尽"));
             }
         } catch (Exception e) {
             Log.LOGGER.error(e);
