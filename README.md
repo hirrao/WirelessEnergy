@@ -2,6 +2,8 @@
 
 添加了一个简单的命令, 可以查看GTLite整合包中无线电网的电量
 
+适配alpha-73版本, 对于后续CE版本理论上支持
+
 # Usage
 
 /energy \<UserName>
